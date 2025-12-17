@@ -14,10 +14,11 @@
     font-family: 'Segoe UI', sans-serif;
   }
 
+  /* Bigger envelope */
   .envelope-container {
     position: relative;
-    width: 320px;
-    height: 220px;
+    width: 360px;
+    height: 420px; /* increased */
     cursor: pointer;
   }
 
@@ -26,8 +27,8 @@
     width: 100%;
     height: 100%;
     background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
     overflow: hidden;
   }
 
@@ -35,11 +36,12 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 50%;
+    height: 45%;
     background: #ff4d6d;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top;
     transition: transform 1s;
+    z-index: 2;
   }
 
   .envelope.open .flap {
@@ -52,11 +54,12 @@
     width: 100%;
     height: 100%;
     background: #fff;
-    padding: 20px;
+    padding: 28px;
     box-sizing: border-box;
     transform: translateY(100%);
     transition: transform 1s;
     text-align: center;
+    overflow: hidden; /* no scroll */
   }
 
   .envelope.open .letter {
@@ -68,23 +71,24 @@
 
   h1 {
     color: #ff4d6d;
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 12px;
   }
 
   p {
     color: #444;
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   button {
-    margin-top: 15px;
+    margin-top: 20px;
     background: #ff4d6d;
     border: none;
     color: #fff;
-    padding: 8px 18px;
-    border-radius: 20px;
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-size: 16px;
     cursor: pointer;
   }
 
@@ -92,16 +96,8 @@
     background: #e63e5c;
   }
 
-  .love {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #ff4d6d;
-    cursor: pointer;
-    font-weight: 600;
-  }
-
   .hint {
-    margin-top: 10px;
+    margin-top: 14px;
     font-size: 14px;
     color: #fff;
     text-align: center;
@@ -151,9 +147,10 @@
             everything about you matters, bacchaa.
           </p>
 
-          <div class="love" onclick="lovePopup(event)">
+          <!-- I LOVE YOU BUTTON -->
+          <button onclick="lovePopup(event)">
             I love you ❤️
-          </div>
+          </button>
         </div>
 
       </div>
