@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .envelope-container {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    cursor: pointer;
+  }
+
+  .envelope {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    overflow: hidden;
+  }
+
+  .flap {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    background: #ff4d6d;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    transition: transform 1s;
+  }
+
+  .envelope.open .flap {
+    transform: rotateX(180deg);
+  }
+
+  .letter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    transform: translateY(100%);
+    transition: transform 1s;
+    text-align: center;
+  }
+
+  .envelope.open .letter {
+    transform: translateY(0);
+  }
+
+  .card { display: none; }
+  .card.active { display: block; }
+
+  h1 {
+    color: #ff4d6d;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #444;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  button {
+    margin-top: 15px;
+    background: #ff4d6d;
+    border: none;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #e63e5c;
+  }
+
+  .love {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ff4d6d;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .hint {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div>
+  <div class="envelope-container" onclick="openEnvelope()">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="letter">
+
+        <!-- Step 1 -->
+        <div class="card active" id="step1">
+          <h1>Hey Bacchaa 🥺</h1>
+          <p>
+            I’m really sorry for all of this.  
+            I know I messed things up,  
+            and it’s completely on me.
+          </p>
+          <button onclick="nextStep(event,2)">Tap here</button>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card" id="step2">
+          <h1>Pillu 💔</h1>
+          <p>
+            I know I messed up, and I truly regret it.  
+            I never meant to hurt you  
+            or make you feel sad.
+            <br><br>
+            You mean the world to me,  
+            and I promise to do better.
+          </p>
+          <button onclick="nextStep(event,3)">One last thing</button>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card" id="step3">
+          <h1>Always 🤍</h1>
+          <p>
+            You matter to me more than words can say.  
+            Your smile, your feelings,  
+            your presence —  
+            everything about you matters, bacchaa.
+          </p>
+
+          <div class="love" onclick="lovePopup(event)">
+            I love you ❤️
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">Tap the envelope 💌</div>
+</div>
+
+<script>
+  let opened = false;
+
+  function openEnvelope() {
+    if (!opened) {
+      document.getElementById("envelope").classList.add("open");
+      opened = true;
+    }
+  }
+
+  function nextStep(e, step) {
+    e.stopPropagation();
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+    document.getElementById("step" + step).classList.add("active");
+  }
+
+  function lovePopup(e) {
+    e.stopPropagation();
+    alert("I love you too 💖");
+  }
+</script>
+
+</body>
+</html>
