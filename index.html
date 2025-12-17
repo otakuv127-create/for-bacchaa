@@ -12,13 +12,14 @@
     justify-content: center;
     align-items: center;
     font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
   }
 
-  /* Bigger envelope */
+  /* BIG envelope */
   .envelope-container {
     position: relative;
-    width: 360px;
-    height: 420px; /* increased */
+    width: 420px;
+    height: 520px;
     cursor: pointer;
   }
 
@@ -27,16 +28,28 @@
     width: 100%;
     height: 100%;
     background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.3);
     overflow: hidden;
+    animation: none;
+  }
+
+  .envelope.bounce {
+    animation: bounce 0.8s ease;
+  }
+
+  @keyframes bounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.05); }
+    60% { transform: scale(0.98); }
+    100% { transform: scale(1); }
   }
 
   .flap {
     position: absolute;
     top: 0;
     width: 100%;
-    height: 45%;
+    height: 40%;
     background: #ff4d6d;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top;
@@ -53,13 +66,12 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: #fff;
-    padding: 28px;
+    padding: 36px;
     box-sizing: border-box;
+    background: #fff;
     transform: translateY(100%);
     transition: transform 1s;
     text-align: center;
-    overflow: hidden; /* no scroll */
   }
 
   .envelope.open .letter {
@@ -71,24 +83,24 @@
 
   h1 {
     color: #ff4d6d;
-    font-size: 24px;
-    margin-bottom: 12px;
+    font-size: 28px;
+    margin-bottom: 16px;
   }
 
   p {
     color: #444;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 18px;
+    line-height: 1.7;
   }
 
   button {
-    margin-top: 20px;
+    margin-top: 26px;
     background: #ff4d6d;
     border: none;
     color: #fff;
-    padding: 10px 24px;
-    border-radius: 25px;
-    font-size: 16px;
+    padding: 14px 34px;
+    border-radius: 30px;
+    font-size: 18px;
     cursor: pointer;
   }
 
@@ -97,10 +109,46 @@
   }
 
   .hint {
-    margin-top: 14px;
-    font-size: 14px;
+    margin-top: 16px;
+    font-size: 16px;
     color: #fff;
     text-align: center;
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    animation: float 2s ease forwards;
+    pointer-events: none;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120px); opacity: 0; }
+  }
+
+  /* Custom popup */
+  .popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popup-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    animation: bounce 0.6s ease;
+  }
+
+  .popup-content h2 {
+    color: #ff4d6d;
+    font-size: 26px;
   }
 </style>
 </head>
@@ -147,10 +195,7 @@
             everything about you matters, bacchaa.
           </p>
 
-          <!-- I LOVE YOU BUTTON -->
-          <button onclick="lovePopup(event)">
-            I love you ❤️
-          </button>
+          <button onclick="loveAction(event)">I love you ❤️</button>
         </div>
 
       </div>
@@ -160,12 +205,20 @@
   <div class="hint">Tap the envelope 💌</div>
 </div>
 
+<!-- Popup -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2>I love you too 💖</h2>
+  </div>
+</div>
+
 <script>
   let opened = false;
 
   function openEnvelope() {
     if (!opened) {
-      document.getElementById("envelope").classList.add("open");
+      const env = document.getElementById("envelope");
+      env.classList.add("open", "bounce");
       opened = true;
     }
   }
@@ -176,9 +229,25 @@
     document.getElementById("step" + step).classList.add("active");
   }
 
-  function lovePopup(e) {
+  function loveAction(e) {
     e.stopPropagation();
-    alert("I love you too 💖");
+    createHearts();
+    document.getElementById("popup").style.display = "flex";
+    setTimeout(() => {
+      document.getElementById("popup").style.display = "none";
+    }, 2000);
+  }
+
+  function createHearts() {
+    for (let i = 0; i < 8; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.bottom = "120px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 2000);
+    }
   }
 </script>
 
